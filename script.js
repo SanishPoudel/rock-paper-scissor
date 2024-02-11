@@ -7,6 +7,13 @@
 
 let computerScore = 0;
 let userScore = 0;
+let rounds = 0;
+let choice = "";
+
+const r = document.querySelector("#r");
+const p = document.querySelector("#p");
+const s = document.querySelector("#s");
+
 
 function getComputerChoice()
 {
@@ -17,11 +24,50 @@ function getComputerChoice()
     return choice;
 }
 
+r.addEventListener
+(
+    "click", function rockChoice()
+    {
+        choice = "rock";
+        console.log(playRound(getUserChoice(), getComputerChoice()));
+        if (rounds === 5)
+        {
+            game()
+        }
+    }
+
+);
+
+p.addEventListener
+(
+    "click", function paperChoice()
+        {
+        choice = "paper";
+        console.log(playRound(getUserChoice(), getComputerChoice()));
+        if (rounds === 5)
+        {
+            game()
+        }
+    }
+);
+
+s.addEventListener
+(
+    "click", function scissorChoice()
+    {
+        choice = "scissor";
+        console.log(playRound(getUserChoice(), getComputerChoice()));
+        if (rounds === 5)
+        {
+            game()
+        }
+    }
+);
+
 function getUserChoice()
 {
     // This function returns the user's choice.
-    let choice = prompt("Choose rock, paper or scissor.");
-    return choice.toLowerCase();
+    return choice;
 }
 
 function playRound(playerSelection, computerSelection)
@@ -42,19 +88,16 @@ function playRound(playerSelection, computerSelection)
         result = `You: ${playerSelection} \nComputer: ${computerSelection} \nYou lost`;
         computerScore ++;
     }
+    rounds += 1;
+    console.log(rounds);
     return result;
 }
 
 function game()
 {
-    // This function stimulates a best of five game and return the winner while keeping track of their scores.
-    for (let i = 0; i < 5; i++)
-    {
-        console.log(playRound(getUserChoice(),getComputerChoice()));
-        console.log("Your Score:", userScore);
-        console.log("Computer's Score:", computerScore);
-    }
-
+    console.log("Your Score:", userScore);
+    console.log("Computer's Score:", computerScore);
+    
     if (userScore > computerScore)
     {
         console.log("Congratulation! You have won the game by a score of", userScore, "-", computerScore);
@@ -67,7 +110,5 @@ function game()
     {
         console.log("This game was a tie.")
     }
-
+    rounds = 0;
 }
-
-game();
