@@ -15,6 +15,7 @@ const p = document.querySelector("#p");
 const s = document.querySelector("#s");
 
 
+
 function getComputerChoice()
 {
     // This function randomly returns either ‘Rock’, ‘Paper’ or ‘Scissors’ for the computer selection.
@@ -30,6 +31,7 @@ r.addEventListener
     {
         choice = "rock";
         console.log(playRound(getUserChoice(), getComputerChoice()));
+        
         if (rounds === 5)
         {
             game()
@@ -73,6 +75,16 @@ function getUserChoice()
 function playRound(playerSelection, computerSelection)
 {
     // This function returns a string that declares the winner of the round. 
+    rounds += 1;
+    if (rounds > 5 && rounds <= 6)
+    {
+        return "Reload the page to play again.";
+    }
+    else if (rounds > 6)
+    {
+        return null;
+    }
+    
     let result = "";
     if (playerSelection === computerSelection)
     {
@@ -88,13 +100,14 @@ function playRound(playerSelection, computerSelection)
         result = `You: ${playerSelection} \nComputer: ${computerSelection} \nYou lost`;
         computerScore ++;
     }
-    rounds += 1;
+    
     console.log(rounds);
     return result;
 }
 
 function game()
 {
+    // // This function returns the winner while keeping track of their scores.
     console.log("Your Score:", userScore);
     console.log("Computer's Score:", computerScore);
     
@@ -110,5 +123,4 @@ function game()
     {
         console.log("This game was a tie.")
     }
-    rounds = 0;
 }
