@@ -13,6 +13,7 @@ let choice = "";
 const r = document.querySelector("#r");
 const p = document.querySelector("#p");
 const s = document.querySelector("#s");
+const items = document.querySelector(".items");
 
 
 
@@ -30,7 +31,10 @@ r.addEventListener
     "click", function rockChoice()
     {
         choice = "rock";
-        console.log(playRound(getUserChoice(), getComputerChoice()));
+
+        let Rdiv = document.createElement("div");
+        Rdiv.textContent = (playRound(getUserChoice(), getComputerChoice()));
+        items.appendChild(Rdiv);
         
         if (rounds === 5)
         {
@@ -45,7 +49,11 @@ p.addEventListener
     "click", function paperChoice()
         {
         choice = "paper";
-        console.log(playRound(getUserChoice(), getComputerChoice()));
+
+        let Pdiv = document.createElement("div");
+        Pdiv.textContent = (playRound(getUserChoice(), getComputerChoice()));
+        items.appendChild(Pdiv);
+
         if (rounds === 5)
         {
             game()
@@ -58,7 +66,11 @@ s.addEventListener
     "click", function scissorChoice()
     {
         choice = "scissor";
-        console.log(playRound(getUserChoice(), getComputerChoice()));
+
+        let Sdiv = document.createElement("div");
+        Sdiv.textContent = (playRound(getUserChoice(), getComputerChoice()));
+        items.appendChild(Sdiv);
+
         if (rounds === 5)
         {
             game()
@@ -76,51 +88,56 @@ function playRound(playerSelection, computerSelection)
 {
     // This function returns a string that declares the winner of the round. 
     rounds += 1;
-    if (rounds > 5 && rounds <= 6)
+    if (rounds > 5)
     {
-        return "Reload the page to play again.";
-    }
-    else if (rounds > 6)
-    {
+        alert("Reload the page to play again.");
         return null;
     }
     
     let result = "";
     if (playerSelection === computerSelection)
     {
-        result = `You: ${playerSelection} \nComputer: ${computerSelection} \nIt's a tie.`;
+        result = "<br> You: " + playerSelection + "<br> Computer:" + computerSelection + "<br><br> It's a tie. <br><br>";
     }
     else if ((playerSelection == "rock" && computerSelection == "scissor") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissor" && computerSelection == "paper"))
     {
-        result = `You: ${playerSelection} \nComputer: ${computerSelection} \nYou win.`;
+        result = "<br> You: " + playerSelection + "<br> Computer: " + computerSelection + "<br><br> You win. <br><br>";
         userScore ++;
     }
     else
     {
-        result = `You: ${playerSelection} \nComputer: ${computerSelection} \nYou lost`;
+        result = "<br> You: " + playerSelection + "<br> Computer: " + computerSelection + "<br><br> You lost. <br><br>";
         computerScore ++;
     }
-    
-    console.log(rounds);
-    return result;
+    document.getElementById('result').innerHTML = result;
+    return;
 }
 
 function game()
 {
     // // This function returns the winner while keeping track of their scores.
-    console.log("Your Score:", userScore);
-    console.log("Computer's Score:", computerScore);
+    let yourScore = document.createElement("div"); 
+    yourScore.textContent = ("Your Score: " + userScore);
+    items.appendChild(yourScore);
+
+    let compScore = document.createElement("div");
+    compScore.textContent = ("Computer's Score: " + computerScore);
+    items.appendChild(compScore);
     
+    let result = document.createElement("div");
     if (userScore > computerScore)
     {
-        console.log("Congratulation! You have won the game by a score of", userScore, "-", computerScore);
+        result.textContent = ("Congratulation! You have won the game by a score of " + userScore + " - " + computerScore);
     }
     else if (userScore < computerScore)
     {
-        console.log("Unfortunately, You have lost the game by a score of", computerScore, "-", userScore);
+        result.textContent = ("Unfortunately, You have lost the game by a score of " + computerScore + " - " + userScore);
     }
     else
     {
-        console.log("This game was a tie.")
+        result.textContent = ("This game was a tie.")
     }
+
+    items.appendChild(result);
+    
 }
